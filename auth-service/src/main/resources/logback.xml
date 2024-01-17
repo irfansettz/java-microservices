@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" strict="true" monitorInterval="30">
+
+    <Properties>
+        <Property name="defaultpattern">%d{dd-MM-yyyy HH:mm:ss}{GMT+7} [%t] %-5level %logger{36} - %msg%n</Property>
+        <Property name="LOG_PATH">${env:LOG_PATH}</Property>
+        <Property name="LOG_SIZE">${env:LOG_SIZE}</Property>
+        <Property name="LOG_ROLLOVER">${env:LOG_ROLLOVER}</Property>
+        <Property name="APP_NAME">${env:APP_NAME}</Property>
+    </Properties>
+
+    <Filter type="ThresholdFilter" level="trace"/>
+
+    <Appenders>
+
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <Layout type="PatternLayout" pattern="${defaultpattern}"/>
+        </Console>
+
+        <RollingFile
+                name="LogFile"
+                fileName="${LOG_PATH}/${APP_NAME}.log"
+                filePattern="${LOG_PATH}/${APP_NAME}.%i.log.gz">
+            <Layout type="PatternLayout" pattern="${defaultpattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${LOG_SIZE}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${LOG_ROLLOVER}"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+
+        <Logger name="id.com.example.authservice" level="debug" additivity="false">
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+
+        <Logger name="org.springframework.boot" level="info" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+
+        <Root level="error">
+            <AppenderRef ref="LogToConsole"/>
+            <AppenderRef ref="LogFile"/>
+        </Root>
+
+    </Loggers>
+</Configuration>
+
