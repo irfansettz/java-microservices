@@ -33,16 +33,16 @@ public class UserEntity {
 
     @NotNull
     @Column(name = "is_active")
-    private boolean active;
+    private boolean active = true;
 
     private String token;
 
     @Column(name = "refresh_token")
     private String refreshToken;
 
-    @Column(name = "last_updated_by")
-    @NotNull
-    private String lastUpatedBy;
+    @CreationTimestamp
+    @Column(name = "created_on")
+    private Timestamp createdOn;
 
     @UpdateTimestamp
     @Column(name = "last_updated_on")

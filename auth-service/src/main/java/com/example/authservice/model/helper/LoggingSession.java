@@ -1,5 +1,6 @@
 package com.example.authservice.model.helper;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -9,4 +10,13 @@ import java.util.UUID;
 @Component
 public class LoggingSession {
     private final String requestId = UUID.randomUUID().toString();
+    private static String logPath;
+
+    public void setLogPath(HttpServletRequest httpRequest) {
+        this.logPath = httpRequest.getServletPath() + " - " + httpRequest.getMethod();
+    }
+
+    public static String getLogPath() {
+        return logPath;
+    }
 }
