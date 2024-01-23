@@ -31,7 +31,15 @@
 
     <Loggers>
 
-        <Logger name="id.com.example.authservice" level="debug" additivity="false">
+        <Logger name="com.example.authservice" level="debug" additivity="false">
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+
+        <Logger name="com.example.authservice.controller" level="debug" additivity="false">
+            <AppenderRef ref="LogFile"/>
+        </Logger>
+
+        <Logger name="com.example.authservice.service" level="debug" additivity="false">
             <AppenderRef ref="LogFile"/>
         </Logger>
 
